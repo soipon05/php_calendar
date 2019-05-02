@@ -1,6 +1,15 @@
 <?php
 
-echo "Hello World ";
+$body = '';
+$period = new DatePeriod(
+    new DateTime('first day of this month'),
+    new DateInterval('P1D'),
+    new DateTime('first day of next month')    
+);
+foreach ($period as $day) {
+    $body .= sprintf('<td>%d</td>', $day->format('d'));
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +41,8 @@ echo "Hello World ";
                 <td>Sat</td>
             </tr>
             <tr>
-                <td class="youbi_0">1</td>
+            <?php echo $body; ?>
+                <!-- <td class="youbi_0">1</td>
                 <td class="youbi_1">2</td>
                 <td class="youbi_2">3</td>
                 <td class="youbi_3">4</td>
@@ -47,7 +57,7 @@ echo "Hello World ";
                 <td class="gray">2</td>
                 <td class="gray">3</td>
                 <td class="gray">4</td>
-                <td class="gray">5</td>
+                <td class="gray">5</td> -->
             </tr>
         </tbody>
         <tfoot>
