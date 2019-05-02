@@ -1,7 +1,17 @@
 <?php
 
-$t = "2019-04";
-$thisMonth = new DateTime($t);
+try {
+    if (!isset($_GET['t']) || !preg_match('/\A\d{4}-\d{2}\z/', $_GET['t'])){
+        throw new Exception();
+    }
+    $thisMonth = new DateTime($_GET['t']);
+} catch (Exception $e) {
+    $thisMonth = new DateTime('first day of this month');
+}
+
+// var_dump($thisMonth);
+// exit;
+
 $yearMonth = $thisMonth->format('F Y');
 $tail = '';
 $lastDayOfPrevMonth = new DateTime('last day of ' . $yearMonth . ' -1 month');
