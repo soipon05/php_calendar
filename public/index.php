@@ -1,7 +1,10 @@
 <?php
 
+$t = "2019-04";
+$thisMonth = new DateTime($t);
+$yearMonth = $thisMonth->format('F Y');
 $tail = '';
-$lastDayOfPrevMonth = new DateTime('last day of previous month');
+$lastDayOfPrevMonth = new DateTime('last day of ' . $yearMonth . ' -1 month');
 while ($lastDayOfPrevMonth->format('w') < 6) {
     $tail = sprintf('<td class="gray">%d</td>', $lastDayOfPrevMonth->format('d')) . $tail;
     $lastDayOfPrevMonth->sub(new DateInterval('P1D'));
@@ -9,9 +12,9 @@ while ($lastDayOfPrevMonth->format('w') < 6) {
 
 $body = '';
 $period = new DatePeriod(
-    new DateTime('first day of this month'),
+    new DateTime('first day of ' . $yearMonth),
     new DateInterval('P1D'),
-    new DateTime('first day of next month')    
+    new DateTime('first day of ' . $yearMonth . ' +1 month')
 );
 foreach ($period as $day) {
     if ($day->format('w') === '0') { $body .= '</tr><tr>'; }
@@ -19,7 +22,7 @@ foreach ($period as $day) {
 }
 
 $head = '';
-$firstDayOfNextMonth = new DateTIme('first day of next month');
+$firstDayOfNextMonth = new DateTIme('first day of ' . $yearMonth . ' +1 month');
 while ($firstDayOfNextMonth->format('w') > 0) {
     $head .= sprintf('<td class="gray">%d</td>', $firstDayOfNextMonth->format('d'));
     $firstDayOfNextMonth->add(new DateInterval('P1D'));
@@ -43,7 +46,7 @@ $html = '<tr>' . $tail . $body . $head . '</tr>';
         <thead>
             <tr>
                 <th><a href="">&laquo;</a></th>
-                <th colspan="5">May 2019</th>
+                <th colspan="5"><?php echo $yearMonth; ?></th>
                 <th><a href="">&raquo;</a></th>
             </tr>
         </thead>
