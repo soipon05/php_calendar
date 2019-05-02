@@ -7,6 +7,7 @@ echo "Hello World ";
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Calendar</title>
@@ -40,8 +41,8 @@ echo "Hello World ";
                 <td class="youbi_6">7</td>
             </tr>
             <tr>
-                <td class="youbi0">30</td>
-                <td class="youbi1">31</td>
+                <td class="youbi_0">30</td>
+                <td class="youbi_1">31</td>
                 <td class="gray">1</td>
                 <td class="gray">2</td>
                 <td class="gray">3</td>
