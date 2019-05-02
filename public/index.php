@@ -1,5 +1,12 @@
 <?php
 
+$tail = '';
+$lastDayOfPrevMonth = new DateTime('last day of previous month');
+while ($lastDayOfPrevMonth->format('w') < 6) {
+    $tail = sprintf('<td class="gray">%d</td>', $lastDayOfPrevMonth->format('d')) . $tail;
+    $lastDayOfPrevMonth->sub(new DateInterval('P1D'));
+}
+
 $body = '';
 $period = new DatePeriod(
     new DateTime('first day of this month'),
@@ -7,8 +14,18 @@ $period = new DatePeriod(
     new DateTime('first day of next month')    
 );
 foreach ($period as $day) {
-    $body .= sprintf('<td>%d</td>', $day->format('d'));
+    if ($day->format('w') === '0') { $body .= '</tr><tr>'; }
+    $body .= sprintf('<td class="youbi_%d">%d</td>', $day->format('w'), $day->format('d'));
 }
+
+$head = '';
+$firstDayOfNextMonth = new DateTIme('first day of next month');
+while ($firstDayOfNextMonth->format('w') > 0) {
+    $head .= sprintf('<td class="gray">%d</td>', $firstDayOfNextMonth->format('d'));
+    $firstDayOfNextMonth->add(new DateInterval('P1D'));
+}
+
+$html = '<tr>' . $tail . $body . $head . '</tr>';
 
 ?>
 
@@ -26,7 +43,7 @@ foreach ($period as $day) {
         <thead>
             <tr>
                 <th><a href="">&laquo;</a></th>
-                <th colspan="5">August 2015</th>
+                <th colspan="5">May 2019</th>
                 <th><a href="">&raquo;</a></th>
             </tr>
         </thead>
@@ -40,25 +57,7 @@ foreach ($period as $day) {
                 <td>Fri</td>
                 <td>Sat</td>
             </tr>
-            <tr>
-            <?php echo $body; ?>
-                <!-- <td class="youbi_0">1</td>
-                <td class="youbi_1">2</td>
-                <td class="youbi_2">3</td>
-                <td class="youbi_3">4</td>
-                <td class="youbi_4 today">5</td>
-                <td class="youbi_5">6</td>
-                <td class="youbi_6">7</td>
-            </tr>
-            <tr>
-                <td class="youbi_0">30</td>
-                <td class="youbi_1">31</td>
-                <td class="gray">1</td>
-                <td class="gray">2</td>
-                <td class="gray">3</td>
-                <td class="gray">4</td>
-                <td class="gray">5</td> -->
-            </tr>
+           <?php echo $html; ?>
         </tbody>
         <tfoot>
             <tr>
